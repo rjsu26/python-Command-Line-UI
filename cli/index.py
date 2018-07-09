@@ -1,4 +1,4 @@
-from package import (
+from packages import (
     do_crypto, do_movie, do_stocks, do_youtube, do_facebook,
     do_news, do_wallpaper, do_hackathon, do_quote, do_wiki
 )
@@ -22,7 +22,7 @@ class cmdApp(cmd.Cmd):
                     \t *.quote : for quote of the day
                     \t *.wiki : to wikipedia search
                     \t *.exit
-                    \t\t\t\t\t\t\t\t\t for help type help 
+                    for help type help 
                     """
     print(greet)
 
