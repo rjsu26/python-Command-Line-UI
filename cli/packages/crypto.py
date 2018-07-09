@@ -6,13 +6,8 @@ from operator import itemgetter
 import requests
 import pprint
 
-url = ('https://api.coinmarketcap.com/v2/ticker/?limit=10')
-res= requests.get(url)
-dic = res.json()
-codes= dic['data']
-c_list = []
 
-def mk_list(codes):
+def mk_list(codes,c_list):
     for key in codes.keys():
         inner = codes[key]
         price = inner["quotes"]["USD"]
@@ -27,10 +22,11 @@ def mk_list(codes):
             "percent_1hr" : price["percent_change_1h"],
             "percent_24h": price["percent_change_24h"],
             "percent_7d" : price["percent_change_7d"]
-        } 
+          } 
         c_list.append(info)
 
     newlist = sorted(c_list, key=itemgetter('rank'))
+    return newlist
 
 # making the table
 def mk_table(newlist):
@@ -49,9 +45,15 @@ def mk_table(newlist):
     table.row_separator_char = '='
     table.intersection_char = '|'
     table.column_separator_char = '|'
+    return table
 
 def do_crypto():
-    mk_list(codes)
-    mk_table(newlist)
+    url = ('https://api.coinmarketcap.com/v2/ticker/?limit=10')
+    res= requests.get(url)
+    dic = res.json()
+    codes= dic['data']
+    c_list = []
+    newlist = mk_list(codes,c_list)
+    table = mk_table(newlist)
     BeautifulTable.WEP_WRAP
     print(table) 

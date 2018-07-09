@@ -1,3 +1,5 @@
+""" SUGGESTION: add a 'clear' command; arrange the 'help' menu; make the output dynamic to the size of window opened; """
+
 from packages import (
     do_crypto, do_movie, do_stocks, do_youtube, do_facebook,
     do_news, do_wallpaper, do_hackathon, do_quote, do_wiki

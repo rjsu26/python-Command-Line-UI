@@ -1,3 +1,4 @@
+# suggestion - make colorful tables to show the list of countries and sources
 from bs4 import BeautifulSoup
 import requests
 import datetime
@@ -22,6 +23,7 @@ def get_dateTime():
         setYear = year - 1 
 
     req_date = str(setYear)+ '-' + str(setMonth) + '-' + str(setDay)
+    return req_date
 
 
 # extracting the source list and country list from the website
@@ -40,6 +42,8 @@ def mk_lst():
         Cname = country.find('div',{'class' : 'name f3'}).text.strip( )
         country_code = country.find('kbd').text.strip( )
         countryL[Cname]= country_code
+    
+    return sourceL,countryL
 
 # defining the show_news function
 
@@ -63,16 +67,14 @@ def show_news(url):
 
 # The USER INTERFACE
 def do_news():
-    url = ('None')
-    
-    get_dateTime()
+    req_date = get_dateTime()
     
     print("Hello mate! Here are the options to choose the news u would like to read:\n\n")
     print("1.  Top Headlines of your country\n" 
             "2 . Search a keyword \n\n")
     choice = int(input())
 
-    mk_lst()
+    sourceL, countryL =  mk_lst()
 
     if choice==1:
         print("\n1. Enter your country to filter ur news accordingly\n"

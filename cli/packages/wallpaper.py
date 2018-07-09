@@ -1,3 +1,4 @@
+""" suggestion : offer to save or make as desktop background"""
 from bs4 import BeautifulSoup
 from datetime import datetime as dt
 import requests

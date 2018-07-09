@@ -1,3 +1,4 @@
+#  add better user interface, loop back for more queries (if any)
 import pprint
 import requests
 
@@ -9,6 +10,8 @@ def query_inp():
             query = query + '+' + i.lower()
     else:
         query = queryList[0].lower()
+    
+    return query
 
 
 def print_data(result):
@@ -24,8 +27,8 @@ def print_data(result):
     print(" Votes: "+ str(opted['vote_average']))
 
 def do_movie():
-    query_inp()
-    url = "https://api.themoviedb.org/3/search/movie?api_key=d47be8cb9ad8930093820c17b091a396&query=" + query
+    query = query_inp()
+    url =( "https://api.themoviedb.org/3/search/movie?api_key=d47be8cb9ad8930093820c17b091a396&query=" + query)
     res= requests.get(url)
     data = res.json()
     result = data['results']
