@@ -1,4 +1,7 @@
-""" SUGGESTION: add a 'clear' command; arrange the 'help' menu; make the output dynamic to the size of window opened; """
+""" SUGGESTION:
+#  arrange the 'help' menu
+#  make the output dynamic to the size of window opened
+ """
 
 from packages import (
     do_crypto, do_movie, do_stocks, do_youtube, do_facebook,
@@ -6,13 +9,23 @@ from packages import (
 )
 
 import cmd
+import os
 import sys
+from colored import fg, bg, attr
 
 class cmdApp(cmd.Cmd):
-    intro = "Welcome {usr}....".format(usr = sys.argv[1])
+    if len(sys.argv) > 1 :
+        intro = "Welcome {usr}....".format(usr = ' '.join(sys.argv[1: ]))
+    else :
+        print("%s%s //please enter your username after ur command// %s"%(fg(1),attr(1),attr(0)))
+        sys.exit()
+            
     greet = """
-                    --------------------------------------------------------------------------------------------------
-                    \t\t\t\t Welcome to Cli Application
+                    __________________________________________________________________
+                    
+                    \t\t\t Welcome to Cli Application
+                     __________________________________________________________________
+                    
                     \t *.crypto : for top 10 Crypto Currency prices
                     \t *.movie  : for Movie details and ratings
                     \t *.stocks : to get Open, High Low Close and volume details of entered stock
@@ -26,9 +39,30 @@ class cmdApp(cmd.Cmd):
                     \t *.exit
                     for help type help 
                     """
-    print(greet)
+    print(('%s'+greet+'%s')%(fg(220),attr(0)))
 
-    prompt = '$ ~ '
+    prompt = '%s%s$~%s'%(fg(46),attr(1),attr(0))
+    
+    def help_crypto(self):
+        print("To show the list of top 10 cryptocurrencies as per Market Cap")
+    def help_movie(self):
+        print("See the short summary, review and other basic info about ur favoirite movies")
+    def help_stocks(self):
+        print("Just feed the ticker and get the ongoing value of it as per the entered stock countrys' currency value")
+    def help_youtube(self):
+        print("Download your favourite youtube video just with the link. No questions asked  (- _ <)")
+    def help_facebook(self):
+        print("Feed in your facebook credentials in the terminal and see the browser login itself")    
+    def help_news(self):
+        print("Browse through the latest news with a choice for the country and various news sources")
+    def help_wallpaper(self):
+        print("See the wallpaper of the day and get it downloaded if you like it")
+    def help_hackathon(self):
+        print("Extract the list of all hackathons from the website hackerearth.com")
+    def help_quote(self):
+        print("Need some motivation? Get some amazing quotes: randomly or as per ur tastes just easily")
+    def help_wiki(self):
+        print("Search  keywords or get random topics in wikipedia today.")
     
     def do_crypto(self,arg):
         "crypto currency price"
@@ -73,10 +107,22 @@ class cmdApp(cmd.Cmd):
     def do_history(self,arg):
         "when not working"
         print(self._history)
+    
+    def help_intro(self):
+             print("crypto    movie     stocks    youtube    facebook     news   "
+                      "wallpaper     hackathon    quotes      wiki   history    clear    exit")
+                      
+    def do_clear(self,arg):
+        "To clear the current screen"
+        os.system('cls' if os.name=='nt' else 'clear')
+    
 
     def do_exit(self, arg):
         "Exit the application"
         return -1
+
+    def emptyline(self):
+        pass
 
     def precmd(self,line):
         # none
@@ -92,8 +138,8 @@ class cmdApp(cmd.Cmd):
         self._history = []
     
     def postloop(self):
-        print( "Quitting . .  .")
+        print( "GoodBye . .  .")
         cmd.Cmd.postloop(self)
     
 if __name__ == '__main__':
-    cmdApp().cmdloop()
+    cmdApp().cmdloop("%s%sStarting shell...%s\n\n"%(fg(80),attr(5),attr(0)))
