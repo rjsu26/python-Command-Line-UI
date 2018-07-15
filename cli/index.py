@@ -108,10 +108,10 @@ class cmdApp(cmd.Cmd):
         "when not working"
         print(self._history)
     
-    def help_intro(self):
+    def do_help(self,arg):
              print("crypto    movie     stocks    youtube    facebook     news   "
                       "wallpaper     hackathon    quotes      wiki   history    clear    exit")
-                      
+
     def do_clear(self,arg):
         "To clear the current screen"
         os.system('cls' if os.name=='nt' else 'clear')
